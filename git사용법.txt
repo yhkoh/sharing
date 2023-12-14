@@ -1,0 +1,76 @@
+cosmosporject.tistory.com/132
+
+git bash 콘솔창에서 복사/붙여넣기는 ctrl+insert / shift+insert 임
+git의 기준은 로컬저장소이다.(pull, push, clone 등)
+git pull(=fetch + merge)
+
+git checkout branch명 : 현 branch에서 checkout하고 다른 branch로 이동한다는 의미임
+
+git log -p
+--- / +++ 기호는 commit 전/후의 file내역 표시
+
+
+[setting]
+1. 로컬저장소 폴더 생성
+2. git init  # git으로 등록
+3. user 이름과 이메일 설정
+   git config --global user.name "yhkoh"
+   git config --global user.email yhkoh2005@gmail.com
+
+
+[원격저장소의 내용을 로컬저장소로 복사]
+1. 로컬저장소 폴더를 만든다
+2. clone할 https주소를 복사한다.
+3. git clone https://github.com/~~~/~~~.git .(현 폴더)
+4. git remote -v 명령어로 원격저장소와 로컬저장소가 origin이란 이름으로 연결된 것을 확인하다.
+
+
+[원격저장소에 push하기]
+1. git remote add origin https://github.com/~~~/~~~.git  # 로컬저장소를 origin이란 별칭의 원격저장소와 연결
+1-1. git remote add friend https://github.com/~~~/~~~.git # 다른 원격저장소를 friend란 별칭으로 로컬저장소와 연결
+1-2. git remote remove friend # friend 원격저장소 주소 삭제
+2. git push -u origin master  # -u 는 현재 checkout된 로컬저장소의 branch와 원격저장소의 master branch를 연결시켜 다음부터는 git push 만으로 push가 진행되도록 설정하는 명령어다
+
+[집과 회사에서 작업한 파일 연동하기]
+1. git cloen https://github.com/~~~/~~~.git git_home
+2. 파일 생성 -> git add f1.txt -> git commit -m "커밋1"
+3. git push
+
+4. git pull  # github에 있는 수정된 작업파일을 회사 로컬저장소로 가져온다.
+5. git log  # 집에서 commit 내용을 확인하다.
+6.  파일 수정 -> git add f1.txt -> git commit -m "커밋2"
+7. git push
+
+8. 집에서 pull하고 commit하고 push한다
+git push --force  # 충돌에 상관없이 로컬저장소의 내용을 원격저장소에 밀어넣는 명령어
+
+push 에러가 발생할 경우 서로 다른 줄을 수정한 경우라면 pull을 하면 모든 수정사항이 반영되고 vim 에디터가 나타나므로 commit메시지를 적은 후 push한다.
+이때 같은 라인을 수정했다면 conflict가 발생하므로 해당 파일을 최종 편집한 후 add/commit/push 한다.
+
+
+[public 원격저장소A  --(fork)--> 원격저장소B --(push/pull)--> 로컬저장소B]
+원격저장소B의 수정사항을 public A에다가 merge할 때 (원격B = 수정B + 최신A) 이 모두 반영되어야 함
+1. 원격A를 원격B로 fork한다
+2. git clone 원격Burl .  # 원격B를 로컬B의 현재 foder로 복사한다.
+3. 원격B와 로컬B간 push, pull한다.
+4. 업데이트된 원격A를 pull해온 후 로컬B에서 commit하고 원격B로 pus 한 후 원격A에서 원격B를 merge함
+4-1. git remote upstream 원격Aurl   # upstream저장소 추가
+4-2. git fetch upstream master # 원격A를 로컬B로 가져온다.
+4-3. git merge upstream
+4-4. git push origin master 
+
+
+[ssh 인증]
+1. ssh-keygen    # 로컬pc에 인증키 생성
+2. pub키를 메모장으로 연후 내용을 복사하여 원격저장소의 SSH key란에 붙여넣기
+3. git clone ssh의url   # ssh로 된 주소로 다시 내려받기
+
+[markdown]
+제목 : # / ## ~~
+줄바꿈 : 엔터를 두번 입력
+볼드체 : **~~**,   이탤릭체 : *~~*
+숫자목록 : 숫자.(온점),   기호목록 : - ~~,    탭 :  들여쓰기
+인용구 : > ~~
+링크, 이미지 연결 : [링크명](url),  ![이미지명](url)
+코드블록 : 백틱 `~~`
+
